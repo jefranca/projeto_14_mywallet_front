@@ -5,6 +5,7 @@ import UserContext from "../context/UserContext";
 import axios from "axios";
 import { saveToLocalStorage } from "../utils/localStorage";
 
+
 export default function Login(){
     const [email, setEmail]= useState("");
     const [password, setPassword]= useState("");
@@ -22,12 +23,15 @@ export default function Login(){
             email,
             password
         })
-        .then(async function (res) {
+        .then(res => {
             setLogin(res.data);
             saveToLocalStorage(res.data)
             history.push("/home");
         })
-        .catch(err => alert("E-mail ou Senha Incorreto"))
+        .catch(err => {
+            if(err.response.status === 401) {alert("E-mail ou Senha Incorreto");}
+            else{alert("Erro Desconhecido");}
+        })
     }
 
 
@@ -50,7 +54,7 @@ export default function Login(){
                     />
                     <button type='submit'> Entrar </button>
                 </StyledForm>
-                <p>Primeira vez? Cadastre-se!</p>
+                <p onClick={()=> history.push('/sign-up')}>Primeira vez? Cadastre-se!</p>
             </Centralized>
         </Container>
     )
@@ -70,6 +74,7 @@ const Centralized = styled.div`
     width:320px;
 
     & h1{
+        font-family: 'Saira Stencil One', cursive;
         margin: auto;
         color:#FFFFFF;
         font-size: 32px;

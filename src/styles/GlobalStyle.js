@@ -26,9 +26,6 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-body {
-	line-height: 1;
-}
 ol, ul {
 	list-style: none;
 }
@@ -46,6 +43,8 @@ table {
 }
 
 body{
+	line-height: 1;
+	font-family: 'Raleway', sans-serif;
     background-color: #8C11BE;
 }
 `;

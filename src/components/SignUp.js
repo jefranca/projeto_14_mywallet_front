@@ -22,7 +22,8 @@ export default function SignUp(){
             history.push("/");
         })
         .catch(error => {
-            console.log(error.response)
+            if(error.response.status === 401) alert("E-mail já cadastrado");
+            else alert("Erro Desconhecido");
         })
         
     }
@@ -63,7 +64,7 @@ export default function SignUp(){
                     />
                     <button type='submit'> Cadastrar </button>
                 </StyledForm>
-                <p>Já tem uma conta? Entre agora!</p>
+                <p onClick={()=> history.push('/')}>Já tem uma conta? Entre agora!</p>
             </Centralized>
         </Container>
     )

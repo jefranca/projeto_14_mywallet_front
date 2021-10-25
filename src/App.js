@@ -6,10 +6,12 @@ import HomePage from "./components/HomePage";
 import { useState } from "react";
 import { getFromLocalStorage } from "./utils/localStorage";
 import UserContext from "./context/UserContext";
+import InputEntry from "./components/InputEntry";
+import OutputEntry from "./components/OutputEntry";
 
 function App() {
   const [login, setLogin]= useState(getFromLocalStorage())
-  console.log(login)
+  
 
   return (
     <BrowserRouter>
@@ -24,6 +26,12 @@ function App() {
           </Route>
           <Route path="/home" exact> 
               <HomePage />
+          </Route>
+          <Route path="/input-entry" exact> 
+              <InputEntry />
+          </Route>
+          <Route path="/output-entry" exact> 
+              <OutputEntry/>
           </Route>
         </Switch>
       </UserContext.Provider>
