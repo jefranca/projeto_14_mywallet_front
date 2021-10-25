@@ -1,14 +1,30 @@
 import { useHistory } from "react-router-dom";
 import {Container, Centralized} from "./Login"
 import styled from "styled-components";
+import axios from "axios";
+import { useState } from "react";
 
-export default function Login(){
+export default function SignUp(){
     const history = useHistory();
+    const [name, setName]= useState("");
+    const [email, setEmail]= useState("");
+    const [password, setPassword]= useState("");
+    const [confirmedPassword, setConfirmedPassword]= useState("");
     
 
     function signUp(e){
         e.preventDefault();
-        history.push("/")
+        if(password !== confirmedPassword) alert("Confirmação de Senha Incorreta")
+        const body={name,email,password};
+        axios.post("http://localhost:4000/signup",body)
+        .then(res=>{
+            alert("Conta criada com Sucesso");
+            history.push("/");
+        })
+        .catch(error => {
+            console.log(error.response)
+        })
+        
     }
 
 
@@ -17,10 +33,34 @@ export default function Login(){
             <Centralized onSubmit={signUp}>
                 <h1>My Wallet</h1>
                 <StyledForm>
-                    <input type='text' placeholder='Nome'></input>
-                    <input type='email' placeholder='E-mail'></input>
-                    <input type='password' placeholder='Senha'></input>
-                    <input type='password' placeholder='Confirme a Senha'></input>
+                    <input 
+                        type='text' 
+                        placeholder='Nome'
+                        value={name}
+                        onChange={(e)=>{setName(e.target.value)}}
+                        required
+                    />
+                    <input 
+                        type='email' 
+                        placeholder='E-mail'
+                        value={email}
+                        onChange={(e)=>{setEmail(e.target.value)}}
+                        required
+                    />
+                    <input 
+                        type='password' 
+                        placeholder='Senha'
+                        value={password}
+                        onChange={(e)=>{setPassword(e.target.value)}}
+                        required
+                    />
+                    <input 
+                        type='password'
+                        placeholder='Confirme a Senha'
+                        value={confirmedPassword}
+                        onChange={(e)=>{setConfirmedPassword(e.target.value)}}
+                        required
+                    />
                     <button type='submit'> Cadastrar </button>
                 </StyledForm>
                 <p>Já tem uma conta? Entre agora!</p>

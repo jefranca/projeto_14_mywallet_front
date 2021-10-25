@@ -1,6 +1,20 @@
 import styled from "styled-components";
+import {useEffect, useContext} from "react";
+import UserContext from "../context/UserContext";
+import { useHistory } from "react-router-dom";
+
 
 export default function HomePage(){
+    const {login} =useContext(UserContext);
+    const history=useHistory();
+
+    useEffect(()=>{
+        if(!login) {
+            history.push('/')
+        }
+        
+    },[login,history])
+
     return(
         <Container>
             <Top>

@@ -1,13 +1,33 @@
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../context/UserContext";
+import axios from "axios";
+import { saveToLocalStorage } from "../utils/localStorage";
 
 export default function Login(){
+    const [email, setEmail]= useState("");
+    const [password, setPassword]= useState("");
     const history = useHistory();
+    const {login, setLogin} = useContext(UserContext);
+
+    useEffect(()=>{
+        if(login) history.push('/home')
+    },[login,history])
     
 
     function signIn(e){
         e.preventDefault();
-        history.push("/home")
+        axios.post("http://192.168.100.5:4000/",{
+            email,
+            password
+        })
+        .then(async function (res) {
+            setLogin(res.data);
+            saveToLocalStorage(res.data)
+            history.push("/home");
+        })
+        .catch(err => alert("E-mail ou Senha Incorreto"))
     }
 
 
@@ -16,8 +36,18 @@ export default function Login(){
             <Centralized onSubmit={signIn}>
                 <h1>My Wallet</h1>
                 <StyledForm>
-                    <input type='email' placeholder='E-mail'></input>
-                    <input type='password' placeholder='Senha'></input>
+                    <input
+                        type='email'
+                        placeholder='E-mail'
+                        value={email}
+                        onChange={(e)=>{setEmail(e.target.value)}}
+                    />
+                    <input 
+                        type='password' 
+                        placeholder='Senha'
+                        value={password}
+                        onChange={(e)=>{setPassword(e.target.value)}}
+                    />
                     <button type='submit'> Entrar </button>
                 </StyledForm>
                 <p>Primeira vez? Cadastre-se!</p>
