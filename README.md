@@ -54,7 +54,7 @@ To contribute, follow this steps:
 
 If you need help, try do read the doc from GitHub at [How to Create a Pull Request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-## 🤝 Made By
+## Made By
 
 <table>
   <tr>
